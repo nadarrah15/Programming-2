@@ -2,11 +2,10 @@ import java.util.*;
 
 public class CoinStacks {
 	
-	private int square;
 	private ArrayList<Coin> coinArray = new ArrayList<Coin>();
 	
-	public CoinStacks(Coin c, int n, int p) throws Exception{
-		c.setPosition(n, p);
+	public CoinStacks(Coin c, int square, int position) throws Exception{
+		c.setPosition(square, position);
 		coinArray.add(c);
 	}
 	
