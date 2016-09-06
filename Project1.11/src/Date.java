@@ -30,4 +30,8 @@ public class Date {
 		else if(month == 9 || month == 12) monthAdjustment = 6;
 		return (leapYears + monthAdjustment + day + year) % 7;
 	}
+	
+	public String toString(){
+		return "" + month + "-" + day + "-" + year;
+	}
 }
