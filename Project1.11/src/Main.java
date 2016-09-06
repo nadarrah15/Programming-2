@@ -1,8 +1,9 @@
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args)throws Exception {
 		Date randomDate = new Date();
+		randomDate.random();
 		int dayOfTheWeek = randomDate.dayOfTheWeek();
 		if(dayOfTheWeek == 0) System.out.print(randomDate.toString() + " is on a Saturday");
 		else if(dayOfTheWeek == 1) System.out.print(randomDate.toString() + " is on a Sunday");

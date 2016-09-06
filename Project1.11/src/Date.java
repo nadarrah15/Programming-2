@@ -13,8 +13,15 @@ public class Date {
 		check();
 	}
 	
-	//Constructor makes a random date
+	//Default constructor, has no date
 	public Date(){
+		month = (Integer) null;
+		day = (Integer) null;
+		year = (Integer) null;
+	}
+	
+	//makes the date a random date
+	public void random(){
 		Random gen = new Random();
 		month = gen.nextInt(12) + 1;
 		day = gen.nextInt(31) + 1;
