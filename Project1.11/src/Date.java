@@ -21,5 +21,11 @@ public class Date {
 	
 	public int dayOfTheWeek(){
 		int leapYears = year / 4;
+		int monthAdjustment = 0;
+		if(month == 1 || month == 10) monthAdjustment = 1;
+		else if(month == 2 || month == 3 || month == 11) monthAdjustment = 4;
+		else if(month == 5) monthAdjustment = 2;
+		else if(month == 6) monthAdjustment = 5;
+		else if(month == 8) monthAdjustment = 3;
 	}
 }
