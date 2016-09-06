@@ -4,6 +4,8 @@ public class Date {
 	
 	private int month, day, year;
 	
+	//constructor takes month, day, year in that order and throws
+	// an exception if the day is not in the month
 	public Date(int m, int d, int y)throws Exception{
 		month = m;
 		day = d;
@@ -11,8 +13,7 @@ public class Date {
 		check();
 	}
 	
-	//Constructor makes a random date to solve for
-	//UPDATE: needs limit on days for months < 31 days
+	//Constructor makes a random date
 	public Date(){
 		Random gen = new Random();
 		month = gen.nextInt(12) + 1;
@@ -47,6 +48,8 @@ public class Date {
 		return "" + month + "-" + day + "-" + year;
 	}
 	
+	//checks the constructors to make sure that the date is
+	//valid and throws an Exception if not
 	private void check() throws Exception{
 		if(day > 31) throw new Exception("Too many days");
 		else if(month == 2 && day > 29 && year % 4 == 0) throw new Exception("Too many days");
