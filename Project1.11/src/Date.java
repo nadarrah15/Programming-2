@@ -6,10 +6,10 @@ public class Date {
 	
 	//constructor takes month, day, year in that order and throws
 	// an exception if the day is not in the month
-	public Date(int m, int d, int y)throws Exception{
-		month = m;
-		day = d;
-		year = y;
+	public Date(int month, int day, int year)throws Exception{
+		this.month = month;
+		this.day = day;
+		this.year = year;
 		check();
 	}
 	
