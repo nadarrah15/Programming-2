@@ -27,5 +27,7 @@ public class Date {
 		else if(month == 5) monthAdjustment = 2;
 		else if(month == 6) monthAdjustment = 5;
 		else if(month == 8) monthAdjustment = 3;
+		else if(month == 9 || month == 12) monthAdjustment = 6;
+		return (leapYears + monthAdjustment + day + year) % 7;
 	}
 }
