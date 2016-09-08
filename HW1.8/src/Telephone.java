@@ -11,7 +11,6 @@ public class Telephone {
 		number = null;
 	}
 	
-	@SuppressWarnings("null")
 	public Telephone(int exchange, int extension){
 		this.exchange = exchange;
 		this.extension = extension;
@@ -42,6 +41,10 @@ public class Telephone {
 		if(areaCode == 800 || areaCode == 866 || areaCode == 877 || areaCode == 880 || areaCode == 881 || areaCode == 882 || areaCode == 888)
 			return true;
 		else return false;
+	}
+	
+	public String toString(){
+		return "(" + areaCode + ")-" + exchange + "-" + extension; 
 	}
 	
 	private int charToInt(char c)throws Exception{
