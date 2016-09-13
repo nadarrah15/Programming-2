@@ -14,7 +14,7 @@ public class Date {
 	}
 	
 	//Default constructor, has no date
-	@SuppressWarnings("null")
+	@SuppressWarnings("null") 
 	public Date(){
 		month = (Integer) null;
 		day = (Integer) null;
