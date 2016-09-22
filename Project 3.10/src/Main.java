@@ -25,7 +25,7 @@ public class Main {
 			try{
 				move = game.move(reader.nextInt());
 			} catch(InputMismatchException e){
-				System.out.println("Input must be an integer");
+				System.out.println("Input must be an integer within the limits of the board");
 				reader.nextLine();
 			}
 			
@@ -34,7 +34,7 @@ public class Main {
 				try{
 					move = game.move(reader.nextInt());
 				} catch(InputMismatchException e){
-					System.out.println("Input must be an integer");
+					System.out.println("Input must be an integer within the limits of the board");
 					reader.nextLine();
 				}
 			}
