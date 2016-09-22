@@ -85,7 +85,7 @@ public class CoinStrip {
 	 */
 	
 	public boolean move(int loc){
-		if(isEmpty(loc) || loc <= 0 || !(isEmpty(loc - 1)) || loc >= board.capacity()) 
+		if(loc <= 0 || loc >= board.capacity() || !(isEmpty(loc - 1)) || isEmpty(loc)) 
 			return false;
 		else {
 			board.set(loc, new Coin(false));

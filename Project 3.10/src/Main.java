@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -12,18 +13,30 @@ public class Main {
 		boolean win = game.checkWin();
 		while(!win){
 			if(playerTurn){ 
-				System.out.println(">>>Player 1's turn:");
+				System.out.print(">>>Player 1's turn: ");
 				playerTurn = false;
 			}
 			else{
-				System.out.println(">>>Player 2's turn:");
+				System.out.print(">>>Player 2's turn: ");
 				playerTurn = true;
 			}
+			boolean move = false;
 			
-			boolean move = game.move(reader.nextInt());
-			while(!move){
-				System.out.println(">>>Piece not moved, try again:");
+			try{
 				move = game.move(reader.nextInt());
+			} catch(InputMismatchException e){
+				System.out.println("Input must be an integer");
+				reader.nextLine();
+			}
+			
+			while(!move){
+				System.out.print(">>>Piece not moved, try again: ");
+				try{
+					move = game.move(reader.nextInt());
+				} catch(InputMismatchException e){
+					System.out.println("Input must be an integer");
+					reader.nextLine();
+				}
 			}
 			
 			System.out.println(game.toString());
