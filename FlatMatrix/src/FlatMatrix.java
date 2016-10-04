@@ -2,16 +2,35 @@ import java.util.List;
 import java.util.Vector;
 
 public class FlatMatrix<E> implements Matrix<E> {
+	
+	/**
+	 * Uses a single vector to store all data. index (i, j) is (i * width + j)
+	 */
 	private Vector<E> data;
+	
+	/**
+	 * instance variable holds the width of the matrix
+	 */
 	private int w;
+	
+	/**
+	 * instance variable holds the height of the matrix
+	 */
 	private int h;
 
+	/**
+	 * Creates a n*m Matrix that is represented by a single vector
+	 * 
+	 * pre: 0 < n, m
+	 * @param n the height of the matrix
+	 * @param m the width of the matrix
+	 */
 	public FlatMatrix(int n, int m) {
 		if (n <= 0 || m <= 0)
 			throw new IllegalArgumentException();
 
-		w = n;
-		h = m;
+		w = m;
+		h = n;
 		data = new Vector<E>(n * m);
 		for(int i = 0; i < n * m; i++){
 			data.add(null);
@@ -19,7 +38,9 @@ public class FlatMatrix<E> implements Matrix<E> {
 	}
 
 	/**
+	 * Retrieves data at an index
 	 * 
+	 * pre: 0 <= i, j < height, width
 	 * @param i row index of the object being retrieved
 	 * @param j column index of the object being retrieved
 	 * @return an object at i, j
@@ -35,7 +56,10 @@ public class FlatMatrix<E> implements Matrix<E> {
 	}
 
 	/**
+	 * Sets the value at an index
 	 * 
+	 * pre: 0 <= i, j < height, width
+	 * post: data at i, j is changed
 	 * @param i row of the object being set
 	 * @param j column of the object being set
 	 * @throws IllegalArgumentException if the index is out of bounds
@@ -49,6 +73,7 @@ public class FlatMatrix<E> implements Matrix<E> {
 	}
 
 	/**
+	 * Accessor to the width of the FlatMatrix
 	 * 
 	 * @return the width of the Matrix
 	 */
@@ -58,6 +83,7 @@ public class FlatMatrix<E> implements Matrix<E> {
 	}
 
 	/**
+	 * Accessor to the height of the FlatMatrix
 	 * 
 	 * @return the height of the Matrix
 	 */
@@ -67,29 +93,25 @@ public class FlatMatrix<E> implements Matrix<E> {
 	}
 
 	/**
+	 * Resizes a FlatMatrix
 	 * 
+	 * pre: 0 < N, M
+	 * post: data set is N * M where new rows and/or columns have values null. Rows and columns may be removed
 	 * @param N amount of rows the Matrix is being resized to
 	 * @param M amount of columns the matrix is being resized
 	 * @throws IllegalArgumentException if the index is 0 or less
 	 */
 	@Override
 	public void resize(int N, int M) {
-		if (N < 0 || M < 0)
+		if (N <= 0 || M <= 0)
 			throw new IllegalArgumentException();
 
 		Vector<E> newData = new Vector<E>(N * M);
 		for(int i = 0; i < N * M; i++){
 			newData.add(null);
 		}
-		int iMin, jMin;
-		if (N < height())
-			iMin = N;
-		else
-			iMin = width();
-		if (M < height())
-			jMin = M;
-		else
-			jMin = height();
+		int iMin = Math.min(N, w);
+		int jMin = Math.min(M, h);
 
 		for (int i = 0; i < iMin; i++) {
 			for (int j = 0; j < jMin; j++) {
@@ -106,8 +128,9 @@ public class FlatMatrix<E> implements Matrix<E> {
 	 * create a new row i, shifting all existing rows numbered >= i down 1. The
 	 * new row will contain all null's.
 	 * 
-	 * precondition: 0 <= i <= height postcondition: data has size w*(h+1) with
-	 * nulls from entry i*w....((i+1)*w - 1)
+	 * precondition: 0 <= i <= height 
+	 * postcondition: data has size w*(h+1) with nulls from entry i*w....((i+1)*w - 1)
+	 * @param i index of the row being added
 	 */
 	@Override
 	public void addRow(int i) {
@@ -129,7 +152,14 @@ public class FlatMatrix<E> implements Matrix<E> {
 
 		assert (data.size() == w * h) : "Bad addRow";
 	}
-
+	
+	/**
+	 * Adds a column to the FlatMatrix
+	 * 
+	 * pre: 0 <= j <= width
+	 * post: data has size (h + 1) * w and nulls entries 1*w + j... i*w + j
+	 * @param j the index of the column being added
+	 */
 	@Override
 	public void addCol(int j) {
 		if(j < 0 || j > width()) throw new IllegalArgumentException();
@@ -141,6 +171,14 @@ public class FlatMatrix<E> implements Matrix<E> {
 		w++;
 	}
 
+	/**
+	 * Removes a row from the FlatMatrix
+	 * 
+	 * pre: 0 <= i < height
+	 * post:
+	 * @param i the index of the row being removed
+	 * @return List<E> the row being removed
+	 */
 	@Override
 	public List<E> removeRow(int i) {
 		if(i < 0 || i >= height()) throw new IllegalArgumentException();
@@ -153,6 +191,14 @@ public class FlatMatrix<E> implements Matrix<E> {
 		return vec;
 	}
 
+	/**
+	 * Removes a column from the FlatMatrix. 
+	 * 
+	 * pre: 0 <= j < width
+	 * post: data is size h * (w - 1)
+	 * @param j the index of the column being removed
+	 * @return List<E> the column being removed
+	 */
 	@Override
 	public List<E> removeCol(int j) {
 		if(j < 0 || j >= width()) throw new IllegalArgumentException();
@@ -165,6 +211,11 @@ public class FlatMatrix<E> implements Matrix<E> {
 		return vec;
 	}
 
+	/**
+	 * Creates a string representation of the FlatMatrix
+	 * 
+	 * @return String a string representation of the FlatMatrix
+	 */
 	public String toString(){
 		String str = "";
 		for(int i = 0; i < height(); i++){
