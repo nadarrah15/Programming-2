@@ -1,23 +1,43 @@
-import structure.Assert;
-import structure5.Vector;
-
 // An implementation of a rectangular vector.
 // (c) 1998, 2001 duane a. bailey
-
+package structure5;
 
 /**
  * An implementation of rectangular vectors.
  * This implementation of a Matrix is minimal.  Few operations
  * are provided, and no support for mathematical operations
  * is considered.
+ * <P>
+ * Example Usage:
+ * <P>
+ * <pre>
+ * public static void main(String[] argv){
+ *      //create an array of arrays to bet copied into the matrix
+ *      int[][] test = new int[][]{new int[]{1,2,3},
+ *                                 new int[]{4,5,6}, 
+ *                                 new int[]{7,8,9}};
  *
+ *      //create the matrix
+ *      Matrix testMatrix = new {@link #Matrix(int, int) Matrix(test.length, test[0].length)};
+ *      
+ *      //copy the 2-d array into the matrix
+ *      for(int i = 0; i < test.length; i++){
+ *          for(int j = 0; j < test[0].length; j++){
+ *              testMatrix.{@link #set(int, int, Object) set(i,j,new Integer(test[i][j]))};
+ *          }
+ *      }
+ *
+ *      //print out the matrix
+ *      System.out.println(testMatrix);
+ *  }
+ * </pre>
  * @version $Id: Matrix.java 31 2007-08-06 17:19:56Z bailey $
  * @author, 2001 duane a. bailey
  */
-public class Matrix <E>
+public class Matrix<E>
 {
     protected int height, width; // size of matrix
-    protected Vector<E> rows;       // vector of row vectors
+    protected Vector<Vector<E>> rows;       // vector of row vectors
 
     /**
      * Construct an empty matrix.
@@ -44,10 +64,10 @@ public class Matrix <E>
         height = h;  // initialize height and width
         width = w;
         // allocate a vector of rows
-        rows = new Vector(height);
+        rows = new Vector<Vector<E>>(height);
         for (int r = 0; r < height; r++)
         {   // each row is allocated and filled with nulls
-            Vector theRow = new Vector(width);
+            Vector<E> theRow = new Vector<E>(width);
             rows.add(theRow);
             for (int c = 0; c < width; c++)
             {
@@ -65,12 +85,11 @@ public class Matrix <E>
      * @param col The column of the element
      * @return Object located at matrix position (row, col)
      */
-    public Object get(int row, int col)
+    public E get(int row, int col)
     {
         Assert.pre(0 <= row && row < height, "Row in bounds.");
         Assert.pre(0 <= col && col < width, "Col in bounds.");
-        Vector theRow = (Vector)rows.get(row);
-        return theRow.get(col);
+        return rows.get(row).get(col);
     }
 
     /**
@@ -82,12 +101,11 @@ public class Matrix <E>
      * @param row The row of the value to be changed.
      * @param col The column of the value to be changed.
      */
-    public void set(int row, int col, Object value)
+    public void set(int row, int col, E value)
     {
         Assert.pre(0 <= row && row < height, "Row in bounds.");
         Assert.pre(0 <= col && col < width, "Col in bounds.");
-        Vector theRow = (Vector)rows.get(row);
-        theRow.set(col,value);
+        rows.get(row).set(col,value);
     }
 
     /**
@@ -102,7 +120,7 @@ public class Matrix <E>
     {
         Assert.pre(0 <= r && r < width, "Row in bounds.");
         height++;
-        Vector theRow = new Vector(width);
+        Vector<E> theRow = new Vector<E>(width);
         for (int c = 0; c < width; c++)
         {
             theRow.add(null);
@@ -124,8 +142,7 @@ public class Matrix <E>
         width++;
         for (int r = 0; r < height; r++)
         {
-            Vector theRow = (Vector)rows.get(r);
-            theRow.add(c,null);
+            rows.get(r).add(c,null);
         }
     }
 
@@ -138,10 +155,10 @@ public class Matrix <E>
      * @param r The index of the to-be-removed row.
      * @return A vector of values once in the row.
      */
-    public Vector removeRow(int r)
+    public Vector<E> removeRow(int r)
     {
         Assert.pre(0 <= r && r < height,"There is a row to be removed.");
-        Vector result = (Vector)rows.get(r);
+        Vector<E> result = rows.get(r);
         height--;
         rows.remove(r);
         return result;
@@ -155,14 +172,14 @@ public class Matrix <E>
      * @param c The index of the column to be removed.
      * @return A vector of the values removed.
      */
-    public Vector removeCol(int c)
+    public Vector<E> removeCol(int c)
     {
         Assert.pre(0 <= c && c < width,"There is a column to be removed.");
-        Vector result = new Vector(height);
+        Vector<E> result = new Vector<E>(height);
         width--;
         for (int r = 0; r < height; r++)
         {
-            Vector theRow = (Vector)rows.get(r);
+            Vector<E> theRow = rows.get(r);
             result.add(theRow.get(c));
             theRow.remove(c);
         }
@@ -191,18 +208,6 @@ public class Matrix <E>
     {
         return height;
     }
-    
-    public Matrix transpose(){
-    	Matrix matrix = new Matrix(width, height);
-    	for(int i = 0; i < height; i++){
-			Vector vec = (Vector) rows.get(i);
-    		for(int j = 0; j < width; j++){
-    			matrix.set(j, i, vec.get(j));
-    		}
-    	}
-    	
-    	return matrix;
-    }
 
     /**
      * Construct a string representation of the matrix.
@@ -226,5 +231,6 @@ public class Matrix <E>
         s.append(">");
         return s.toString();
     }
+
 }
 
