@@ -212,6 +212,22 @@ public class FlatMatrix<E> implements Matrix<E> {
 	}
 
 	/**
+	 * Transposes the matrix such that the first row becomes the frist column etc.
+	 * 
+	 * @return FlatMatrix<E> is the transpose of this matrix
+	 */
+	public FlatMatrix<E> transpose(){
+    	FlatMatrix<E> matrix = new FlatMatrix<E>(w, h);
+    	for(int i = 0; i < h; i++){
+    		for(int j = 0; j < w; j++){
+    			matrix.set(j, i, get(i, j));
+    		}
+    	}
+    	
+    	return matrix;
+    }
+	
+	/**
 	 * Creates a string representation of the FlatMatrix
 	 * 
 	 * @return String a string representation of the FlatMatrix
