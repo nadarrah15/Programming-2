@@ -24,5 +24,8 @@ public class Main {
 		
 		matrix.resize(11, 11);
 		System.out.println(matrix.toString() + "\n" + matrix.width() + " " + matrix.width());
+		
+		matrix = matrix.transpose();
+		System.out.println(matrix.toString() + "\n" + matrix.width() + " " + matrix.width());
 	}
 }
