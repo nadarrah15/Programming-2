@@ -11,6 +11,7 @@ public class Main {
 		else if(array[mid] > N){
 			//if it is mid rather than mid + 1, it is possible to
 			//return an empty array which will throw an error
+			//copyOfRange(0, mid + 1) will return an array containing index 0 through mid
 			int[] newArray = Arrays.copyOfRange(array, 0, mid + 1);
 			return search(N, newArray);
 		}
