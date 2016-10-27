@@ -6,8 +6,10 @@ public class Palindromes {
 	//we will not check for spaces and assume the user understands the rules. if the user breaks the rules, the
 	//method will still run.
 	//
-	//Runs T(N) = T(N - 2) + C since we shave off 2 letters each time. T(1) and T(2) are constants.
-	//We can deduce that this runs O(n).
+	//Runs T(N) = T(N - 2) + C since we shave off 2 letters each time and recall the method. T(1) and T(2) are constants.
+	//We will show how fast T(N) is in O(n) through induction. We can see that T(2) runs at a constant time. Observe that T(4) = T(2) + C = 4 / 2 * C = 2C
+	//since T(2) is constant. Assume T(N - 2) = (N-2) / 2 * C. Then we can observe T(N) = T(N - 2) + C and since T(N - 2) = (N - 2) / 2 * C
+	//then T(N) = (N - 2) / 2 * C + C = (N - 2) / 2 * C + 2C/2 = N/2 * C. Therefore since the largest term is N, this program runs O(n)
 	public static boolean isPalindrome(String s){
 		//we are not case sensitive
 		s = s.toLowerCase();
