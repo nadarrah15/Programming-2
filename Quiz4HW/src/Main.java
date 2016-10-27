@@ -133,8 +133,12 @@ public class Main {
 		for(int i = 10; i <= 100000; i *= 10){
 			int[] a = new int[i];
 			for(int j = 0; j < i; j++){
-				
+				a[j] = gen.nextInt();
 			}
+			long startTime = System.currentTimeMillis();
+			otherSort(a);
+			long endTime = System.currentTimeMillis();
+			System.out.println("Sort for array " + i + " long. Time: " + (endTime - startTime) + "ms");
 		}
 	}
 }
