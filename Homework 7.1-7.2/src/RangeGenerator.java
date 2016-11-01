@@ -12,15 +12,14 @@ public class RangeGenerator extends AbstractGenerator{
 	public RangeGenerator(int min, int max){
 		this.min = min;
 		this.max = max;
-		current = min;
+		set(min);
 	}
 	
 	/**
 	 * User needs a wake-up to remember not all default constructors are created equally. Have fun traversing this behemoth of a range. (Mental note: Find a better word than behemoth. Pay attention in class, Dr. Yarnell might spew a fancy south carolina word for behemoth.)
 	 */
 	public RangeGenerator(){
-		min = Integer.MIN_VALUE;
-		max = Integer.MAX_VALUE;
+		this(Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 	
 	/**
@@ -28,16 +27,20 @@ public class RangeGenerator extends AbstractGenerator{
 	 */
 	@Override
 	public int next() {
-		if(current != max)
-			current++;
-		else
-			current = min;
+		int i = get();
 		
-		return current;
+		if(i != max){
+			i++;
+			set(i);
+		}
+		else
+			reset();
+		
+		return i;
 	}
 
 	@Override
 	public void reset() {
-		current = min;
+		set(min);
 	}
 }

@@ -3,26 +3,25 @@ import java.util.Random;
 public class RandomIntGenerator extends AbstractGenerator {
 
 	private Random gen = new Random();		//our random number generator
-	private int seed;						//the seed for the generator. Will give consistent numbers
+	private long seed;						//the seed for the generator. Will give consistent numbers
+	private int max;
 	
 	/**
-	 * Constructs a RandomIntGenerator with an initial seed. The initial value will be the first by the specified seed. Once reset, the same values will be given
+	 * Constructs a RandomIntGenerator with a random seed and a bound to the return values. The initial value will be the first value by the specified seed. Once reset, the same values will be given
 	 * 
-	 * @param initial user specified seed for the random generator. 
+	 * @param max
 	 */
-	public RandomIntGenerator(int initial){
-		seed = initial;
-		gen.setSeed(seed);
-		current = gen.nextInt();
+	public RandomIntGenerator(int max){
+		this.max = max;
+		seed = System.nanoTime();
+		reset();
 	}
 	
 	/**
-	 * Constructs a RandomIntGenerator with the seed of 0
+	 * Constructs a RandomIntGenerator with a random seed and no bound. The initial value will be the first value by the specified seed. Once reset, the same values will be given
 	 */
 	public RandomIntGenerator(){
-		seed = 0;
-		gen.setSeed(seed);
-		current = gen.nextInt();
+		this(Integer.MAX_VALUE);
 	}
 	
 	/**
@@ -30,8 +29,9 @@ public class RandomIntGenerator extends AbstractGenerator {
 	 */
 	@Override
 	public int next() {
-		current = gen.nextInt();
-		return current;
+		int i = gen.nextInt(max);
+		set(i);
+		return i;
 	}
 
 	/**
@@ -40,6 +40,6 @@ public class RandomIntGenerator extends AbstractGenerator {
 	@Override
 	public void reset() {
 		gen.setSeed(seed);
-		current = gen.nextInt();
+		set(gen.nextInt(max));
 	}
 }

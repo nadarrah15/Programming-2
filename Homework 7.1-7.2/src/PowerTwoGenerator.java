@@ -9,14 +9,14 @@ public class PowerTwoGenerator extends AbstractGenerator {
 		if(initial < 0)
 			throw new IllegalArgumentException("Parameter must be at least 0");
 		
-		current = (int) (Math.pow(2, initial));
+		set((int) (Math.pow(2, initial)));
 	}
 	
 	/**
 	 * Creates a PowerTwoGenerator that starts at 2^0
 	 */
 	public PowerTwoGenerator(){
-		current = 1;
+		this(0);
 	}
 	
 	/**
@@ -24,8 +24,9 @@ public class PowerTwoGenerator extends AbstractGenerator {
 	 */
 	@Override
 	public int next() {
-		current *= 2;
-		return current;
+		int i = get() * 2;
+		set(i);
+		return i;
 	}
 
 	/**
@@ -33,6 +34,6 @@ public class PowerTwoGenerator extends AbstractGenerator {
 	 */
 	@Override
 	public void reset() {
-		current = 1;
+		set(1);
 	}
 }
