@@ -29,11 +29,11 @@ public class RangeGenerator extends AbstractGenerator{
 	@Override
 	public int next() {
 		if(current != max)
-			return current++;
-		else{
-			reset();
-			return current;
-		}
+			current++;
+		else
+			current = min;
+		
+		return current;
 	}
 
 	@Override

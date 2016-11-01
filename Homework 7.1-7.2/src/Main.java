@@ -4,7 +4,7 @@ public class Main {
 	public static void main(String[] args){
 		RandomIntGenerator a = new RandomIntGenerator();
 		PowerTwoGenerator b = new PowerTwoGenerator();
-		RangeGenerator c = new RangeGenerator(0, 10);
+		RangeGenerator c = new RangeGenerator(0, 2);
 		printGen(a);
 		resetGenerator(a);
 		printGen(a);
