@@ -13,15 +13,16 @@ public class StringIterator implements Iterator{
 	
 	@Override
 	public boolean hasNext() {
-		return current < s.length() - 1;
+		return current < s.length();
 	}
 
 	@Override
 	public Object next() {
-		if(current < s.length() - 1){
+		if(current < s.length()){
+			String res = s.substring(0, s.length() - current);
 			current++;
 			
-			return s.substring(0, s.length() - current);
+			return res;
 		}
 		else{
 			throw new NoSuchElementException("No more elements remain");
